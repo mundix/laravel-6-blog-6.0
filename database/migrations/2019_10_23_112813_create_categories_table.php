@@ -16,6 +16,8 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('parent_id')->default(0);
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('updated_by_user_id')->unsigned();
             $table->string('name');
             $table->string('slug')->unique();
             $table->boolean('active')->default(true);
