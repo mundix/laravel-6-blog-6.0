@@ -23,6 +23,10 @@ class CreatePostsTable extends Migration
             $table->string('image_path')->nullable();
             $table->integer('type_id')->nullable(); //Has One
             $table->timestamps();
+
+//            $table->foreign('user_id')
+//                ->references('id')->on('user')
+//                ->onDelete('cascade');
         });
     }
 
