@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PostRequest;
+use App\Http\Requests\PostCreateRequest;
+use App\Http\Requests\PostUpdateRequest;
+use App\Jobs\SendPostUpdatedJob;
+use App\Notifications\PostUpdateNotification;
 use App\Post;
 use Illuminate\Http\Request;
 
@@ -34,9 +37,9 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PostRequest $postRequest)
+    public function store(PostCreateRequest $postCreateRequest)
     {
-        $validation = $postRequest->validated();
+        $validation = $postCreateRequest->validated();
     }
 
     /**
@@ -68,9 +71,10 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Post $post,PostUpdateRequest $request)
     {
-        //
+        $post->update($request->all());
+        return redirect()->route('admin.posts.index');
     }
 
     /**
